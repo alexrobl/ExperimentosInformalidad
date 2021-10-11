@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head_content %}{% endblock %}
+
+
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{% static 'css/main_experiment.css' %}" />
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- P5.JS -->
+    <script src="{% static 'js/p5.js' %}"></script>
+   
+    <script>
+        
+
+        var form_google = 'https://docs.google.com/forms/d/e/1FAIpQLSepEnFiXgL1ZZoJBEX8qIyW6xvtaVMQzqpAuc3QCr7u2xtuRg/viewform?entry.1332288676='
+        var countImages = "{{ Imagenes|length }}";
+        var orden = "{{ orden }}";
+        var uuid = "{{ Uuid }}";
+        var encuesta = form_google.concat(uuid);
+        control = 0;
+        let capture;
+        isVideoPlaying = false;
+        let recorder;
+
+
+        timeLeft = 5;
+
+        function countdown() {
+            timeLeft--;
+            document.getElementById("seconds").innerHTML = String( timeLeft );
+            if (timeLeft > 0) {
+                setTimeout(countdown, 1000);
+            }else{
+                document.getElementById("clock").style.display = 'none';
+                // document.getElementById("experiment").style.display = 'block';
+                
+            }
+        };
+        
+        setTimeout(countdown, 1000);
+
+
+        function setup() {
+            
+        };
+
+        
+        function preload() {
+        // preload() runs once
+                var constraints = {
+                video: {
+                    mandatory: {
+                    minWidth: 330,
+                    minHeight: 240,
+                    echoCancellation: true, // is this working??
+                    },
+                    optional: [{ maxFrameRate: 30}],
+                },
+                audio: false 
+                };
+                capture = createCapture(constraints, function(stream)   {    
+                // create a recorder object with the camera stream
+                recorder = new MediaRecorder(stream, {
+                    // mimeType: 'video/mp4'
+                });
+                });
+        };
+        
+        document.addEventListener('DOMContentLoaded', setTimeout( function() {
+        var elems = document.querySelectorAll('.carousel');
+        var instances = M.Carousel.init(elems, {
+            fullWidth: true,
+            indicators: false,
+            interval:5000,
+            duration:5,
+            onCycleTo:function (ele) {
+                var elemento = $(ele).index()
+                control = control+1;
+                if(control == 1){
+                    console.log('inicio');
+                    recorder.start();
+                    // $("button").trigger('click');
+                }else if(control == countImages){
+                    setTimeout(function () {
+                    console.log('Finaliza');
+                    control = 0;
+                    recorder.ondataavailable = e => {
+                    // video = createVideo(URL.createObjectURL(e.data), videoLoad);
+                    csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    blob = e.data;
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", "/experimentos/new", true);
+                    xhttp.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+                    xhttp.setRequestHeader( 'Access-Control-Allow-Origin', '*');
+                    var data = new FormData();
+                    data.append('data', blob, 'RECORD');
+                    
+                    data.append('order', orden);
+                    data.append('uuid', uuid);
+                    xhttp.send(data);
+                    window.location= encuesta;
+                    };
+                    
+                    recorder.stop();
+                    }, 5000);
+                };
+                }
+                
+                //     
+        },setTimeout(autoplay,5000));
+        },5000));
+
+        function autoplay() {
+                $('.carousel').carousel('next');
+                setTimeout(autoplay, 5000);
+                
+            };
+
+            
+
+    </script>
+</head>
+<body>
+    <main>
+   
+    <div class="container">
+        {% block container %}
+        {% endblock%}
+    </div>
+    
+
+    </main>
+    <!-- <script>
+        document.getElementById("experiment").style.display = 'none';
+    </script> -->
+</body>
+</html>

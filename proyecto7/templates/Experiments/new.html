@@ -1,0 +1,31 @@
+{% extends "base_materialize.html" %}
+
+{% block head_content %}
+    <title>Experimento Proyecto 7</title>
+{% endblock%}
+
+{% block container %}
+
+<div id="clock">
+    <span id="seconds">5</span>
+</div>
+
+    <div class="row" id="experiment">
+        <div class="col s12">
+            <div class="carousel carousel-slider">
+                {% for imagen in Imagenes %}
+                <a class="carousel-item">
+                    <img src="{{ imagen.photo.url }}">					
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% csrf_token %}
+
+
+
+{% endblock %}
+

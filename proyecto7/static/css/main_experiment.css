@@ -1,0 +1,35 @@
+html, body {
+    background: #252233;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+#clock {
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	background-color: lightgrey;
+	margin: auto;
+}
+
+.container{
+	margin-top: 5em;
+}
+
+/* #experiment {
+	display : none;
+} */
+
+video {
+    display: none;
+  }
+
+span {
+	display: block;
+	width: 100%;
+	margin: auto;
+	padding-top: 50px;
+	text-align: center;
+	font-size: 150px;
+}

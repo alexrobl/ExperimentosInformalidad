@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "proyecto7.users.apps.UsersConfig",
+    "proyecto7.experimentos.apps.ExperimentosConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
