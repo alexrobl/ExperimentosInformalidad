@@ -11,7 +11,7 @@ SECRET_KEY = env(
     default="HpQSsMlKDkLnNssuZAIYJ09TYNqMQq3kCXBrwj7lgjd2dNqa02SBnE5bSyKNwJzC",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "blue.urosario.edu.co"]
 
 # CACHES
 # ------------------------------------------------------------------------------

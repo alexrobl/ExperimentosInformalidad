@@ -1,9 +1,11 @@
 from django.contrib import admin
 from proyecto7.experimentos.models import Images, Experiment
+from django.http import HttpResponse
+
+from zipfile import ZipFile
+import csv
 # Register your models here.
 
-# hacer los actions!!!
-#@admin.action(description='Descargar csv')
 def ExperimentToCSV(modeladmin, request, queryset):
     meta = modeladmin.model._meta
     field_names = [field.name for field in meta.fields]
@@ -19,7 +21,6 @@ def ExperimentToCSV(modeladmin, request, queryset):
     return response
 
 
-#@admin.action(description='Descargar zip - videos')
 def ExperimentToZIP(modeladmin, request, queryset):
     response = HttpResponse(content_type='application/zip')
     zipObj = ZipFile(response, 'w')
@@ -33,4 +34,4 @@ def ExperimentToZIP(modeladmin, request, queryset):
 
 @admin.register(Images, Experiment)
 class experimentsAdmin(admin.ModelAdmin):
-    pass
+    actions = [ExperimentToCSV, ExperimentToZIP]
