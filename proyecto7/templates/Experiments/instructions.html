@@ -1,0 +1,48 @@
+{% extends "base_materialize.html" %}
+
+{% block head_content %}
+    <title>Instrucciones</title>
+{% endblock%}
+
+{% block container %}
+
+
+<!-- <div class="row" id="experiment">
+    <div class="col s12">
+        {% for set in Set %}
+        <div class="carousel carousel-slider">
+            <a class="carousel-item">
+                <img src="{{ set.Image_instruccions.url }}" alt="imagen de instrucciones">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div> -->
+<div class="row center" id="experiment">
+    {% for set in Set %}
+    <img width="1100" src="{{ set.Image_instruccions.url }}">
+    <div class="col s12">
+        <a class="btn waves-effect white grey-text darken-text-2" href="{% url 'disclaimer' set.pk%}">He comprendido</a>
+    </div>
+    {% endfor %}
+</div>
+<!-- <div class="carousel carousel-slider center">
+    <div class="carousel-fixed-item center">
+      <a class="btn waves-effect white grey-text darken-text-2">He comprendido</a>
+    </div>
+    {% for set in Set %}
+    <div class="carousel-item">
+      <img src="{{ set.Image_instruccions.url }}" alt="imagen de instrucciones">
+    </div>
+    {% endfor %}
+</div> -->
+
+
+<!-- {% for set in Set %}
+<div class="carousel carousel-slider">
+    <a class="carousel-item"><img src="{{ set.Image_instruccions.url }}"></a>
+</div>
+<a class="btn waves-effect white grey-text darken-text-2">He comprendido</a>
+{% endfor %} -->
+
+{% endblock %}

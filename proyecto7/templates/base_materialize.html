@@ -19,7 +19,8 @@
     <script>
         
 
-        var form_google = 'https://docs.google.com/forms/d/e/1FAIpQLSepEnFiXgL1ZZoJBEX8qIyW6xvtaVMQzqpAuc3QCr7u2xtuRg/viewform?entry.1332288676='
+        var form_google = "{{ success_url }}"
+        // 'https://docs.google.com/forms/d/e/1FAIpQLSepEnFiXgL1ZZoJBEX8qIyW6xvtaVMQzqpAuc3QCr7u2xtuRg/viewform?entry.1332288676='
         var countImages = "{{ Imagenes|length }}";
         var orden = "{{ orden }}";
         var uuid = "{{ Uuid }}";
@@ -96,12 +97,13 @@
                     csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
                     blob = e.data;
                     var xhttp = new XMLHttpRequest();
-                    xhttp.open("POST", "/experimentos/new", true);
+                    xhttp.open("POST", "/experimentos/new/{{id}}/", true);
                     xhttp.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
                     xhttp.setRequestHeader( 'Access-Control-Allow-Origin', '*');
                     var data = new FormData();
                     data.append('data', blob, 'RECORD');
                     
+                    data.append('set_id', "{{id}}")
                     data.append('order', orden);
                     data.append('uuid', uuid);
                     xhttp.send(data);

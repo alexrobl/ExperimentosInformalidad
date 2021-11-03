@@ -1,5 +1,5 @@
 from django.contrib import admin
-from proyecto7.experimentos.models import Images, Experiment
+from proyecto7.experimentos.models import Set, Images, Experiment
 from django.http import HttpResponse
 
 from zipfile import ZipFile
@@ -32,6 +32,6 @@ def ExperimentToZIP(modeladmin, request, queryset):
     
     return response
 
-@admin.register(Images, Experiment)
+@admin.register(Set,Images, Experiment)
 class experimentsAdmin(admin.ModelAdmin):
     actions = [ExperimentToCSV, ExperimentToZIP]

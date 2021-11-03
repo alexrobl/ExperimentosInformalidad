@@ -50,14 +50,14 @@ services:
       - "50206:7000"
     command: /start-docs
   nginx-proxy:
-   image: jwilder/nginx-proxy:alpine
-   container_name: nginx-proxy
-   ports:
-     - "50207:80"
-     - "443:443"
-   volumes:
-     - /var/run/docker.sock:/tmp/docker.sock:ro
-     - ./certs:/etc/nginx/certs
-   restart: always
-   depends_on:
-     - django
+    image: jwilder/nginx-proxy:alpine
+    container_name: nginx-proxy
+    ports:
+      - "50207:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+    restart: always
+    depends_on:
+      - django
