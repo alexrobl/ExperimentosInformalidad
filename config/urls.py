@@ -5,6 +5,10 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
+#para debug False!
+from django.conf.urls import url
+from django.views.static import serve
+
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -19,9 +23,13 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path('experimentos/', include('proyecto7.experimentos.urls')),
     path('tinymce/', include('tinymce.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
+#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+urlpatterns += [ url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+]
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
