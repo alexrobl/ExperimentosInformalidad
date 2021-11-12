@@ -19,8 +19,14 @@ Moved to settings_.
 
 .. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
 
-Basic Commands
+Requerimientos Básicos
 --------------
+
+Docker Y Docker-Compose
+^^^^^^^^^^^^^^^^^^^^^
+* **Docker:** Docker empaqueta software en “contenedores” que incluyen en ellos todo lo necesario para que dicho software se ejecute, incluidas librerías. Con Docker se puede implementar y ajustar la escala de aplicaciones de una forma rápida en cualquier entorno con la garantía de que el código se ejecutará.
+
+* **Docker-Compose:** Docker compose nos ayuda utilizar docker con una estructura declarativa y facilita la gestión. Toda la configuración la podemos encontrar en el fichero.
 
 Setting Up Your Users
 ^^^^^^^^^^^^^^^^^^^^^
